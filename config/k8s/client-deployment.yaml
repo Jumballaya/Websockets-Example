@@ -17,3 +17,5 @@ spec:
           image: registry.gitlab.com/pburris/cursors/client
           ports:
             - containerPort: 3000
+      imagePullSecrets:
+       - name: regcred
