@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+  cursor_client:
+    container_name: cursor-client
+    build:
+      context: ./
+      dockerfile: ./config/client.dev.Dockerfile 
+    depends_on:
+      - cursor_server
+    ports:
+      - 1234:1234
+      - 8080:8080
+    restart: always
+    volumes:
+      - ./client:/opt/nodejs/app
+      - /opt/nodejs/app/node_modules
+
+  cursor_server:
+    container_name: cursor-server
+    build:
+      context: ./
+      dockerfile: ./config/server.Dockerfile 
+    ports:
+      - 3000:3000
+    depends_on:
+      - cursor_redis
+    restart: always
+    command: npm run start:dev
+    volumes:
+      - ./server:/opt/nodejs/app
+      - /opt/nodejs/app/node_modules
+
+  cursor_redis:
+    container_name: cursor-redis
+    image: redis
+    ports:
+      - 6379:6379
+    restart: always
