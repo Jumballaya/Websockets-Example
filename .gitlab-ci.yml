@@ -4,16 +4,19 @@ services:
 
 stages:
   - build
-  # - deploy
+  - deploy
 
 variables:
   REG_BASE_URI: registry.gitlab.com
   REG_BASE: ${REG_BASE_URI}/pburris/cursors
+  REG_USER: gitlab-ci-token
+
+  K8S_CLUSTER_URL: 34.72.232.130
 
 build:
   stage: build
   script:
-    - docker login -u gitlab-ci-token -p ${REG_TOKEN} ${REG_BASE}
+    - docker login -u ${REG_USER} -p ${REG_TOKEN} ${REG_BASE}
     - docker build -f ./config/client.prod.Dockerfile -t ${REG_BASE}/client .
     - docker build -f ./config/server.Dockerfile -t ${REG_BASE}/server .
     - docker tag ${REG_BASE}/client ${REG_BASE}/client:latest
@@ -21,14 +24,16 @@ build:
     - docker push ${REG_BASE}/client:latest
     - docker push ${REG_BASE}/server:latest
 
-# deploy:
-#   stage: deploy
-#   image: dtzar/helm-kubectl
-#   script:
-#     # - kubectl config set-cluster k8s --server="${SERVER}"
-#     # - kubectl config set clusters.k8s.certificate-authority-data ${CERTIFICATE_AUTHORITY_DATA}
-#     # - kubectl config set-credentials gitlab --token="${USER_TOKEN}"
-#     # - kubectl config set-context default --cluster=k8s --user=gitlab
-#     # - kubectl config use-context default
-#     # - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" deployment.yaml
-#     # - kubectl apply -f deployment.yaml
+deploy:
+  stage: deploy
+  image: dtzar/helm-kubectl
+  script:
+    - kubectl config set-cluster mine --server=${K8S_CLUSTER_URL} --insecure-skip-tls-verify=true
+    - kubectl create secret docker-registry regcred --docker-server=${REG_BASE_URI} --docker-username=${REG_USER} --docker-password=${REG_TOKEN}
+    - kubectl config set-credentials mine --token=${K8S_TOKEN}
+    - kubectl config set-context mine --cluster=mine --user=mine
+    - kubectl config use-context mine
+    - kubectl delete secret ${REG_SECRET} || true
+    - kubectl create secret docker-registry ${REG_SECRET} --docker-server=${REG_BASE_URI} --docker-username=${REG_USER} --docker-password=${REG_TOKEN}
+    - kubectl apply -f ./k8s
+    - kubectl describe ingress ${APP_API_NAME}-ingress
