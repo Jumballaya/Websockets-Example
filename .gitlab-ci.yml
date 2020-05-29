@@ -7,18 +7,19 @@ stages:
   # - deploy
 
 variables:
-  REG_BASE_URI: registry.gitlab.com/pburris/cursors
+  REG_BASE_URI: registry.gitlab.com
+  REG_BASE: ${REG_BASE_URI}/pburris/cursors
 
 build:
   stage: build
   script:
-    - docker login -u gitlab-ci-token -p ${REG_TOKEN} ${REG_BASE_URI}
-    - docker build -f ./config/client.prod.Dockerfile -t ${REG_BASE_URI}/client .
-    - docker build -f ./config/server.Dockerfile -t ${REG_BASE_URI}/server .
-    - docker tag ${REG_BASE_URI}/client ${REG_BASE_URI}/client:latest
-    - docker tag ${REG_BASE_URI}/server ${REG_BASE_URI}/server:latest
-    - docker push ${REG_BASE_URI}/client:latest
-    - docker push ${REG_BASE_URI}/server:latest
+    - docker login -u gitlab-ci-token -p ${REG_TOKEN} ${REG_BASE}
+    - docker build -f ./config/client.prod.Dockerfile -t ${REG_BASE}/client .
+    - docker build -f ./config/server.Dockerfile -t ${REG_BASE}/server .
+    - docker tag ${REG_BASE}/client ${REG_BASE}/client:latest
+    - docker tag ${REG_BASE}/server ${REG_BASE}/server:latest
+    - docker push ${REG_BASE}/client:latest
+    - docker push ${REG_BASE}/server:latest
 
 # deploy:
 #   stage: deploy

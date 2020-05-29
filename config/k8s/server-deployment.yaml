@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: server
+  template:
+    metadata:
+      labels:
+        component: server
+    spec:
+      containers:
+        - name: server
+          image: registry.gitlab.com/pburris/cursors/server
+          ports:
+            - containerPort: 3000
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip-service
+            - name: REDIS_PORT
+              value: '6379'
