@@ -19,7 +19,7 @@ spec:
             backend:
               serviceName: server-cluster-ip-service
               servicePort: 5000
-          - path: /?(.*)
+          - path: ^/socket.io/?(.*) /$1 break
             backend:
               serviceName: server-cluster-ip-service
               servicePort: 5000
