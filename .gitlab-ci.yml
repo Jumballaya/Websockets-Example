@@ -26,7 +26,7 @@ deploy:
   stage: deploy
   image: google/cloud-sdk
   script:
-    - echo $K8S_TOKEN | base64 -d > ${HOME}/k8s-token.json
+    - echo $K8S_TOKEN > ${HOME}/k8s-token.json
     - gcloud auth activate-service-account --key-file ${HOME}/k8s-token.json
     - gcloud config set project cursors-278722
     - gcloud config set compute/zone us-central1-c
