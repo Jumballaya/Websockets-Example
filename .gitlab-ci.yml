@@ -29,7 +29,7 @@ deploy:
   image: dtzar/helm-kubectl
   script:
     - kubectl config set-cluster k8s --server="${K8S_CLUSTER_URL}"
-    - kubectl config set clusters.k8s.certificate-authority-data ${K8S_CERT_AUTH}
+    # - kubectl config set clusters.k8s.certificate-authority-data ${K8S_CERT_AUTH}
     - kubectl config set-credentials gitlab --token="${K8S_TOKEN}"
     - kubectl config set-context default --cluster=k8s --user=gitlab
     - kubectl config use-context default
