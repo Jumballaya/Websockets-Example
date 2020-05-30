@@ -16,8 +16,10 @@ spec:
         - name: server
           image: registry.gitlab.com/pburris/cursors/server
           ports:
-            - containerPort: 3000
+            - containerPort: 5000
           env:
+            - name: NODE_PORT
+              value: '5000'
             - name: REDIS_HOST
               value: redis-cluster-ip-service
             - name: REDIS_PORT
