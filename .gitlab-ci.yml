@@ -11,8 +11,6 @@ variables:
   REG_BASE: ${REG_BASE_URI}/pburris/cursors
   REG_USER: gitlab-ci-token
 
-  K8S_CLUSTER_URL: 34.72.232.130
-
 # build:
 #   stage: build
 #   script:
@@ -26,11 +24,12 @@ variables:
 
 deploy:
   stage: deploy
-  image: dtzar/helm-kubectl
+  image: google/cloud-sdk
   script:
-    - kubectl config set-cluster k8s --server="${K8S_CLUSTER_URL}"
-    # - kubectl config set clusters.k8s.certificate-authority-data ${K8S_CERT_AUTH}
-    - kubectl config set-credentials gitlab --token="${K8S_TOKEN}"
-    - kubectl config set-context default --cluster=k8s --user=gitlab
-    - kubectl config use-context default
+    - echo $K8S_TOKEN | base64 -d > ${HOME}/k8s-token.json
+    - gcloud auth activate-service-account --key-file ${HOME}/k8s-token.json
+    - gcloud config set project cursors-278722
+    - gcloud config set compute/zone us-central1-c
+    - gcloud container clusters get-credentials cursors-cluster
     - kubectl apply -f ./k8s
+    - kubectl describe ingress
