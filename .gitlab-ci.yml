@@ -29,11 +29,8 @@ deploy:
   image: dtzar/helm-kubectl
   script:
     - kubectl config set-cluster mine --server=${K8S_CLUSTER_URL} --insecure-skip-tls-verify=true
-    - kubectl create secret docker-registry regcred --docker-server=${REG_BASE_URI} --docker-username=${REG_USER} --docker-password=${REG_TOKEN}
     - kubectl config set-credentials mine --token=${K8S_TOKEN}
     - kubectl config set-context mine --cluster=mine --user=mine
     - kubectl config use-context mine
-    - kubectl delete secret ${REG_SECRET} || true
-    - kubectl create secret docker-registry ${REG_SECRET} --docker-server=${REG_BASE_URI} --docker-username=${REG_USER} --docker-password=${REG_TOKEN}
     - kubectl apply -f ./k8s
     - kubectl describe ingress ${APP_API_NAME}-ingress
