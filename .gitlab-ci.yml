@@ -28,9 +28,9 @@ deploy:
   stage: deploy
   image: dtzar/helm-kubectl
   script:
-    - kubectl config set-cluster mine --server=${K8S_CLUSTER_URL} --insecure-skip-tls-verify=true
-    - kubectl config set-credentials mine --token=${K8S_TOKEN}
-    - kubectl config set-context mine --cluster=mine --user=mine
-    - kubectl config use-context mine
+    - kubectl config set-cluster k8s --server="${K8S_CLUSTER_URL}"
+    - kubectl config set clusters.k8s.certificate-authority-data ${K8S_CERT_AUTH}
+    - kubectl config set-credentials gitlab --token="${K8S_TOKEN}"
+    - kubectl config set-context default --cluster=k8s --user=gitlab
+    - kubectl config use-context default
     - kubectl apply -f ./k8s
-    - kubectl describe ingress ${APP_API_NAME}-ingress
