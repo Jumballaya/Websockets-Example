@@ -31,5 +31,5 @@ deploy:
     - gcloud config set project cursors-278722
     - gcloud config set compute/zone us-central1-c
     - gcloud container clusters get-credentials cursors-cluster
-    - kubectl apply -f ./k8s
+    - kubectl apply -f ./config/k8s
     - kubectl describe ingress
