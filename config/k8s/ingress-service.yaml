@@ -11,7 +11,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /?(.*)
+          - path: /
             backend:
               serviceName: client-cluster-ip-service
               servicePort: 3000
@@ -19,7 +19,7 @@ spec:
             backend:
               serviceName: server-cluster-ip-service
               servicePort: 5000
-          - path: /socket.io/?(/socket.io/.*)
+          - path: /?(.*)
             backend:
               serviceName: server-cluster-ip-service
               servicePort: 5000

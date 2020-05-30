@@ -9,7 +9,6 @@ export class SocketController {
 
     constructor() {
         this.socket = io(config.api.base, { transports: ['websocket'], upgrade: false });
-        console.log(this.socket);
         this.socket.on('connect', this.connect.bind(this));
     }
 
@@ -24,8 +23,7 @@ export class SocketController {
         });
     }
 
-    private connect(d: any) {
-        console.log(d);
+    private connect() {
         this.socket.emit('enter', {}, (data) => {
             this.id = data.id;
             this.color = data.color;
