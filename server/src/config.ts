@@ -1,7 +1,9 @@
+const { env } = process;
+
 
 export const config = () => ({
     redis: {
-        host: 'cursor-redis',
-        port: 6379,
+        host: env.REDIS_HOST || 'cursor-redis',
+        port: env.REDIS_PORT || 6379,
     },
 });

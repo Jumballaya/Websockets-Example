@@ -26,6 +26,9 @@ services:
       - 3000:3000
     depends_on:
       - cursor_redis
+    environment:
+      REDIS_HOST: cursor-redis
+      REDIS_PORT: 6379
     restart: always
     command: npm run start:dev
     volumes:
