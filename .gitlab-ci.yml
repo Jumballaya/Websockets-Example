@@ -34,6 +34,6 @@ deploy:
     - kubectl delete -f ./config/k8s/server-deployment.yaml || true
     - kubectl delete -f ./config/k8s/client-deployment.yaml || true
     - kubectl create -f ./config/k8s/server-deployment.yaml --validate=false
-    - kubectl create -f ./config/k8s/server-deployment.yaml --validate=false
+    - kubectl create -f ./config/k8s/client-deployment.yaml --validate=false
     - kubectl apply -f ./config/k8s
     - kubectl describe ingress
