@@ -8,7 +8,7 @@ export class SocketController {
     cursors: any[];
 
     constructor() {
-        this.socket = io(config.api.base, { transports: ['websocket'], upgrade: false });
+        this.socket = io('/api', { transports: ['websocket'], upgrade: false });
         this.socket.on('connect', this.connect.bind(this));
     }
 

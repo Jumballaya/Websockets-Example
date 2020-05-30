@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { RedisModule } from 'nestjs-redis';
 import { CursorSocketGateway } from "./websocket/websocket.gateway";
 import { config } from './config';
+import { HealthModule } from "./health/health.module";
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import { config } from './config';
             useFactory: (configService: ConfigService) => configService.get('redis'),
             inject: [ConfigService],
         }),
+        HealthModule,
     ],
     providers: [CursorSocketGateway],
 })
