@@ -11,6 +11,10 @@ variables:
   REG_BASE: ${REG_BASE_URI}/pburris/cursors
   REG_USER: gitlab-ci-token
 
+  GCLOUD_PROJECT: cursors-278722
+  GCLOUD_ZONE: us-central1-c
+  K8S_CLUSTER: cursors-cluster
+
 build:
   stage: build
   script:
@@ -28,9 +32,9 @@ deploy:
   script:
     - echo $K8S_JSON > ./k8s-token.json
     - gcloud auth activate-service-account --key-file ./k8s-token.json
-    - gcloud config set project cursors-278722
-    - gcloud config set compute/zone us-central1-c
-    - gcloud container clusters get-credentials cursors-cluster
+    - gcloud config set project ${GCLOUD_PROJECT}
+    - gcloud config set compute/zone ${GCLOUD_ZONE}
+    - gcloud container clusters get-credentials ${K8S_CLUSTER}
     - kubectl delete -f ./config/k8s/server-deployment.yaml || true
     - kubectl delete -f ./config/k8s/client-deployment.yaml || true
     - kubectl create -f ./config/k8s/server-deployment.yaml --validate=false
