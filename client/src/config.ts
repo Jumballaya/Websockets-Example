@@ -1,5 +1,5 @@
 export const config = {
     api: {
-        base: '/',
+        base: 'https://api.pburris.dev/',
     },
 };
