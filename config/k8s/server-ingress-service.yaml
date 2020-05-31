@@ -12,7 +12,7 @@ spec:
   tls:
     - hosts:
         - api.pburris.dev
-      secretName: pburris-dev-com
+      secretName: pburris-dev
   rules:
     - host: api.pburris.dev
       http:
