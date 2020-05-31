@@ -1,5 +1,6 @@
+
 export const config = {
     api: {
-        base: 'https://api.pburris.dev/',
+        base: process.env.WS_HOST,
     },
 };

@@ -1,6 +1,8 @@
 import io from 'socket.io-client';
 import { config } from './config';
 
+console.log(config);
+
 export class SocketController {
     socket: SocketIOClient.Socket;
     id: string;
