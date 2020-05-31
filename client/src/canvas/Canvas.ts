@@ -25,7 +25,6 @@ export class Canvas {
 
 
     private async onCursorMove(e: MouseEvent) {
-        this.drawCursor(e.clientX, e.clientY, this.controller.color);
         this.controller.updatePosition(e.clientX, e.clientY);
     }
 
@@ -45,8 +44,9 @@ export class Canvas {
 
     private drawCursors(cursors: any[]) {
         this.clearScreen();
-        cursors.forEach(o => {
-            this.drawCursor(o.x, o.y, o.color);
-        });
+        cursors
+            .forEach(o => {
+                this.drawCursor(o.x, o.y, o.color);
+            });
     }
 }
