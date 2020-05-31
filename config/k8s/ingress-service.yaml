@@ -13,6 +13,7 @@ spec:
     - hosts:
         - pburris.dev
         - www.pburris.dev
+        - api.pburris.dev
       secretName: pburris-dev-com
   rules:
     - host: pburris.dev
