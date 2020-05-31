@@ -26,7 +26,7 @@ spec:
     - host: www.pburris.dev
       http:
         paths:
-          - path: /(.*)
+          - path: /
             backend:
               serviceName: client-cluster-ip-service
               servicePort: 3000
