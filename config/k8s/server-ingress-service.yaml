@@ -11,10 +11,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - api.cursors.pburris.dev
+        - cursors-api.pburris.dev
       secretName: pburris-dev
   rules:
-    - host: api.cursors.pburris.dev
+    - host: cursors-api.pburris.dev
       http:
         paths:
           - path: /
