@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: registry.gitlab.com/pburris/cursors/client
+          image: registry.gitlab.com/pburris.dev/cursors/client
           ports:
             - containerPort: 3000
       imagePullSecrets:

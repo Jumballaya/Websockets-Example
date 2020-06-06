@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: registry.gitlab.com/pburris/cursors/server
+          image: registry.gitlab.com/pburris.dev/cursors/server
           ports:
             - containerPort: 5000
           env:
