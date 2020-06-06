@@ -8,12 +8,12 @@ stages:
 
 variables:
   REG_BASE_URI: registry.gitlab.com
-  REG_BASE: ${REG_BASE_URI}/pburris/cursors
+  REG_BASE: ${REG_BASE_URI}/pburris.dev/cursors
   REG_USER: gitlab-ci-token
 
-  GCLOUD_PROJECT: cursors-278722
+  GCLOUD_PROJECT: pburris-dev
   GCLOUD_ZONE: us-central1-c
-  K8S_CLUSTER: cursors-cluster
+  K8S_CLUSTER: pburrisdev
 
 build:
   stage: build
